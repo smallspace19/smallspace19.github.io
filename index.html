@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 引入 Font Awesome 图标库 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <title>tlias 智能学习辅助系统</title>
+  <style>
+    /* 全局样式重置与基础设置 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "微软雅黑", sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    /* 版心样式 - 控制主要内容宽度并居中 */
+    .container {
+      width: 70%;
+      margin: 0 auto;
+      background-color: #fff;
+      min-height: 100vh;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 顶部标题栏样式 */
+    .header {
+      background-color: #ccc;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+    }
+
+    .header h1 {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .header .logout-btn {
+      background-color: #fff;
+      border: 1px solid #999;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    /* 查询表单区域样式 */
+    .search-form {
+      display: flex;
+      justify-content: space-between; /* 让搜索区域和按钮区域分开 */
+      align-items: center;
+      padding: 20px;
+      background-color: #f8f8f8;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .search-group {
+      display: flex;
+      align-items: center;
+      gap: 10px; /* 增加元素间的间距 */
+    }
+
+    .search-form label {
+      margin-right: 5px;
+    }
+
+    .search-form input[type="text"],
+    .search-form select {
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px; /* 按钮之间的间距 */
+    }
+
+    .search-form .btn {
+      padding: 5px 15px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .search-form .query-btn {
+      background-color: #0099ff;
+      color: #fff;
+    }
+
+    .search-form .reset-btn {
+      background-color: #ccc;
+      color: #333;
+    }
+
+    /* 表格区域样式 */
+    .table-container {
+      width: 95%;
+      margin: 20px auto;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+    }
+
+    thead {
+      background-color: #f0f0f0;
+    }
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    /* 头像单元格样式 */
+    td .avatar {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      background-color: #ccc;
+      border-radius: 3px;
+      line-height: 30px;
+      text-align: center;
+      color: #fff;
+      font-size: 14px;
+    }
+
+    /* 操作按钮样式 */
+    .operate a {
+      margin: 0 5px;
+      color: #ff9900;
+      text-decoration: none;
+    }
+
+    .operate a:hover {
+      text-decoration: underline;
+    }
+
+    /* 底部版权信息样式 */
+    .footer {
+      text-align: center;
+      padding: 10px;
+      background-color: #ccc;
+      color: #333;
+      font-size: 12px;
+    }
+
+    /* 响应式调整 - 在小屏幕上适当调整版心宽度 */
+    @media (max-width: 768px) {
+      .container {
+        width: 95%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 版心容器 - 控制整体宽度并居中 -->
+  <div class="container">
+    <!-- 顶部标题栏 -->
+    <div class="header">
+      <h1>tlias 智能学习辅助系统</h1>
+      <button class="logout-btn">退出登录</button>
+    </div>
+
+    <!-- 搜索栏 -->
+    <form action="#" method="get" class="search-form">
+        <div class="search-group">
+            <label for="name">姓名</label>
+            <input type="text" id="name" name="name" placeholder="请输入员工姓名">
+            <label for="gender">性别</label>
+            <select id="gender" name="gender">
+            <option value="">请选择</option>
+            <option value="male">男</option>
+            <option value="female">女</option>
+            </select>
+            <label for="position">职位</label>
+            <select id="position" name="position">
+                <option value="">请选择</option>
+                <option value="teacher">班主任</option>
+                <option value="lecturer">讲师</option>
+                <option value="lecture1r">学工主管</option>
+                <option value="1">教研主管</option>
+                <option value="12">咨询师</option>
+            </select>
+        </div>
+        <div class="button-group">
+            <button type="submit" class="btn query-btn">查询</button>
+            <button type="reset" class="btn reset-btn">清空</button>
+        </div>
+    </form>
+
+    <!-- 表格区域 -->
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>头像</th>
+            <th>职位</th>
+            <th>入职日期</th>
+            <th>最后操作时间</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>赵敏</td>
+            <td>女</td>
+            <td><i class="fa-regular fa-image avatar"></i></td>
+            <td>班主任</td>
+            <td>2008-12-18</td>
+            <td>2023-07-22 12:05:20</td>
+            <td class="operate"><a href="#">编辑</a><a href="#">删除</a></td>
+          </tr>
+          <tr>
+            <td>风清扬</td>
+            <td>男</td>
+            <td><i class="fa-regular fa-image avatar"></i></td>
+            <td>讲师</td>
+            <td>2015-07-22</td>
+            <td>2022-07-22 15:00:00</td>
+            <td class="operate"><a href="#">编辑</a><a href="#">删除</a></td>
+          </tr>
+          <!-- 重复数据 -->
+          <tr>
+            <td>风清扬</td>
+            <td>男</td>
+            <td><i class="fa-regular fa-image avatar"></i></td>
+            <td>讲师</td>
+            <td>2015-07-22</td>
+            <td>2022-07-22 15:00:00</td>
+            <td class="operate"><a href="#">编辑</a><a href="#">删除</a></td>
+          </tr>
+          <tr>
+            <td>风清扬</td>
+            <td>男</td>
+            <td><i class="fa-regular fa-image avatar"></i></td>
+            <td>讲师</td>
+            <td>2015-07-22</td>
+            <td>2022-07-22 15:00:00</td>
+            <td class="operate"><a href="#">编辑</a><a href="#">删除</a></td>
+          </tr>
+          <tr>
+            <td>风清扬</td>
+            <td>男</td>
+            <td><i class="fa-regular fa-image avatar"></i></td>
+            <td>讲师</td>
+            <td>2015-07-22</td>
+            <td>2022-07-22 15:00:00</td>
+            <td class="operate"><a href="#">编辑</a><a href="#">删除</a></td>
+          </tr>
+          <tr>
+            <td>风清扬</td>
+            <td>男</td>
+            <td><i class="fa-regular fa-image avatar"></i></td>
+            <td>讲师</td>
+            <td>2015-07-22</td>
+            <td>2022-07-22 15:00:00</td>
+            <td class="operate"><a href="#">编辑</a><a href="#">删除</a></td>
+          </tr>
+          <tr>
+            <td>风清扬</td>
+            <td>男</td>
+            <td><i class="fa-regular fa-image avatar"></i></td>
+            <td>讲师</td>
+            <td>2015-07-22</td>
+            <td>2022-07-22 15:00:00</td>
+            <td class="operate"><a href="#">编辑</a><a href="#">删除</a></td>
+          </tr>
+          <tr>
+            <td>风清扬</td>
+            <td>男</td>
+            <td><i class="fa-regular fa-image avatar"></i></td>
+            <td>讲师</td>
+            <td>2015-07-22</td>
+            <td>2022-07-22 15:00:00</td>
+            <td class="operate"><a href="#">编辑</a><a href="#">删除</a></td>
+          </tr>
+          <tr>
+            <td>风清扬</td>
+            <td>男</td>
+            <td><i class="fa-regular fa-image avatar"></i></td>
+            <td>讲师</td>
+            <td>2015-07-22</td>
+            <td>2022-07-22 15:00:00</td>
+            <td class="operate"><a href="#">编辑</a><a href="#">删除</a></td>
+          </tr>
+          <tr>
+            <td>风清扬</td>
+            <td>男</td>
+            <td><i class="fa-regular fa-image avatar"></i></td>
+            <td>讲师</td>
+            <td>2015-07-22</td>
+            <td>2022-07-22 15:00:00</td>
+            <td class="operate"><a href="#">编辑</a><a href="#">删除</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 底部版权信息 -->
+    <div class="footer">
+      江苏传智播客教育科技股份有限公司<br>
+      版权所有 Copyright 2006 - 2024 All Rights Reserved
+    </div>
+  </div>
+</body>
+
+</html>
+    

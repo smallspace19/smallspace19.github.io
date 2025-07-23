@@ -1,323 +1,953 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- 引入 Font Awesome 图标库 -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <title>tlias 智能学习辅助系统</title>
-  <style>
-    /* 全局样式重置与基础设置 */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: "微软雅黑", sans-serif;
-      background-color: #f5f5f5;
-      color: #333;
-    }
-
-    /* 版心样式 - 控制主要内容宽度并居中 */
-    .container {
-      width: 70%;
-      margin: 0 auto;
-      background-color: #fff;
-      min-height: 100vh;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    /* 顶部标题栏样式 */
-    .header {
-      background-color: #ccc;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 20px;
-    }
-
-    .header h1 {
-      font-size: 20px;
-      font-weight: bold;
-    }
-
-    .header .logout-btn {
-      background-color: #fff;
-      border: 1px solid #999;
-      padding: 5px 10px;
-      cursor: pointer;
-    }
-
-    /* 查询表单区域样式 */
-    .search-form {
-      display: flex;
-      justify-content: space-between; /* 让搜索区域和按钮区域分开 */
-      align-items: center;
-      padding: 20px;
-      background-color: #f8f8f8;
-      border-bottom: 1px solid #ddd;
-    }
-
-    .search-group {
-      display: flex;
-      align-items: center;
-      gap: 10px; /* 增加元素间的间距 */
-    }
-
-    .search-form label {
-      margin-right: 5px;
-    }
-
-    .search-form input[type="text"],
-    .search-form select {
-      padding: 5px;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-    }
-
-    .button-group {
-      display: flex;
-      gap: 10px; /* 按钮之间的间距 */
-    }
-
-    .search-form .btn {
-      padding: 5px 15px;
-      border: none;
-      border-radius: 3px;
-      cursor: pointer;
-    }
-
-    .search-form .query-btn {
-      background-color: #0099ff;
-      color: #fff;
-    }
-
-    .search-form .reset-btn {
-      background-color: #ccc;
-      color: #333;
-    }
-
-    /* 表格区域样式 */
-    .table-container {
-      width: 95%;
-      margin: 20px auto;
-      overflow-x: auto;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: center;
-    }
-
-    thead {
-      background-color: #f0f0f0;
-    }
-
-    th,
-    td {
-      border: 1px solid #ddd;
-      padding: 8px;
-    }
-
-    /* 头像单元格样式 */
-    td .avatar {
-      display: inline-block;
-      width: 30px;
-      height: 30px;
-      background-color: #ccc;
-      border-radius: 3px;
-      line-height: 30px;
-      text-align: center;
-      color: #fff;
-      font-size: 14px;
-    }
-
-    /* 操作按钮样式 */
-    .operate a {
-      margin: 0 5px;
-      color: #ff9900;
-      text-decoration: none;
-    }
-
-    .operate a:hover {
-      text-decoration: underline;
-    }
-
-    /* 底部版权信息样式 */
-    .footer {
-      text-align: center;
-      padding: 10px;
-      background-color: #ccc;
-      color: #333;
-      font-size: 12px;
-    }
-
-    /* 响应式调整 - 在小屏幕上适当调整版心宽度 */
-    @media (max-width: 768px) {
-      .container {
-        width: 95%;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spin Spin Bird</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐦</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            perspective: 1000px;
+            overflow: hidden;
+        }
+        
+        .container {
+            width: 400px;
+            height: 400px;
+            transform-style: preserve-3d;
+            animation: rotateY 4s infinite linear;
+            transition: transform 0.3s ease;
+        }
+        
+        .container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        @keyframes rotateY {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+        
+        @keyframes rotateX {
+            0% { transform: rotateX(0deg); }
+            100% { transform: rotateX(360deg); }
+        }
+        
+        @keyframes rotateZ {
+            0% { transform: rotateZ(0deg); }
+            100% { transform: rotateZ(360deg); }
+        }
+        
+        @keyframes rotateY-reverse {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(-360deg); }
+        }
+        
+        @keyframes rotateX-reverse {
+            0% { transform: rotateX(0deg); }
+            100% { transform: rotateX(-360deg); }
+        }
+        
+        @keyframes rotateZ-reverse {
+            0% { transform: rotateZ(0deg); }
+            100% { transform: rotateZ(-360deg); }
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* 控制台样式 - 调整高度为90% */
+        .control-panel {
+            position: fixed;
+            right: 20px;
+            top: 5%;
+            height: 90vh;
+            width: 320px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        
+        /* 最小化状态 */
+        .control-panel.minimized {
+            height: 60px;
+            width: 60px;
+            padding: 0;
+            overflow: hidden;
+            cursor: pointer;
+            top: 20px;
+            right: 20px;
+        }
+        
+        .minimized .panel-content {
+            opacity: 0;
+            visibility: hidden;
+            height: 0;
+            width: 0;
+        }
+        
+        .minimized .minimize-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.8rem;
+            color: #3498db;
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .minimized .minimize-btn i {
+            transition: transform 0.3s ease;
+        }
+        
+        .minimized .minimize-btn:hover i {
+            transform: scale(1.2);
+        }
+        
+        .minimize-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(240, 248, 255, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+        
+        .minimize-btn:hover {
+            background: rgba(210, 232, 255, 0.9);
+        }
+        
+        .minimize-btn i {
+            font-size: 1.2rem;
+            color: #3498db;
+            transition: transform 0.3s ease;
+        }
+        
+        .control-panel h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding-right: 30px;
+        }
+        
+        .control-panel h2 i {
+            color: #3498db;
+        }
+        
+        .control-group {
+            margin-bottom: 15px;
+            background: rgba(240, 248, 255, 0.7);
+            padding: 12px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .control-group-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 0;
+            color: #1a5276;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .control-group-title:hover {
+            background: rgba(210, 232, 255, 0.4);
+        }
+        
+        .control-group-title i {
+            font-size: 1.1rem;
+        }
+        
+        .control-group-title .toggle-icon {
+            transition: transform 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .control-group.collapsed .toggle-icon {
+            transform: rotate(180deg);
+        }
+        
+        .control-content {
+            max-height: 500px;
+            overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+            opacity: 1;
+        }
+        
+        .control-group.collapsed .control-content {
+            max-height: 0;
+            opacity: 0;
+        }
+        
+        .control-group label {
+            display: block;
+            margin: 12px 0 8px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.95rem;
+        }
+        
+        .control-group input[type="text"] {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        
+        .control-group input[type="text"]:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .slider-container input[type="range"] {
+            flex: 1;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            outline: none;
+        }
+        
+        .slider-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: #3498db;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .slider-container input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+            background: #2980b9;
+        }
+        
+        .value-display {
+            min-width: 45px;
+            text-align: center;
+            font-weight: 600;
+            color: #3498db;
+            background: #f0f8ff;
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .btn-option {
+            flex: 1;
+            text-align: center;
+            padding: 10px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .btn-option:hover {
+            background: #e9f7fe;
+        }
+        
+        .btn-option.active {
+            background: #d1e8ff;
+            border-color: #3498db;
+            color: #2980b9;
+        }
+        
+        .action-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(to right, #3498db, #2c3e50);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+        
+        .action-btn:active {
+            transform: translateY(0);
+        }
+        
+        .title {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            letter-spacing: 2px;
+            text-align: center;
+        }
+        
+        .title span {
+            color: #ffeb3b;
+            text-shadow: 0 0 10px rgba(255, 235, 59, 0.7);
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            display: block;
+            margin-top: 10px;
+            color: #a0d2ff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .instructions {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1.1rem;
+            max-width: 600px;
+            line-height: 1.6;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 50, 0.3);
+            padding: 15px 30px;
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .bird-decoration {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            opacity: 0.7;
+            z-index: -1;
+        }
+        
+        .bird-1 {
+            top: 15%;
+            left: 10%;
+            animation: float 8s infinite ease-in-out;
+        }
+        
+        .bird-2 {
+            top: 25%;
+            right: 15%;
+            animation: float 10s infinite ease-in-out;
+        }
+        
+        .bird-3 {
+            bottom: 20%;
+            left: 20%;
+            animation: float 12s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+            25% { transform: translateY(-20px) translateX(10px) rotate(5deg); }
+            50% { transform: translateY(10px) translateX(-15px) rotate(-5deg); }
+            75% { transform: translateY(-15px) translateX(20px) rotate(3deg); }
+        }
+        
+        @media (max-width: 900px) {
+            body {
+                flex-direction: column;
+                padding: 20px;
+            }
+            
+            .control-panel {
+                position: relative;
+                width: 100%;
+                max-width: 400px;
+                height: auto;
+                top: auto;
+                margin-top: 40px;
+                margin-bottom: 30px;
+            }
+            
+            .control-panel.minimized {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+            
+            .title {
+                position: relative;
+                top: auto;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                font-size: 2.5rem;
+            }
+            
+            .container {
+                width: 300px;
+                height: 300px;
+            }
+        }
+        
+        /* 添加底部空间 */
+        .control-panel-spacer {
+            flex: 1;
+        }
+        
+        .panel-content {
+            transition: opacity 0.3s ease;
+        }
+        
+        /* 语言选择器样式 */
+        .language-selector {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 30px;
+            padding: 8px 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .lang-btn {
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9rem;
+            background: transparent;
+            border: none;
+            color: #2c3e50;
+        }
+        
+        .lang-btn:hover {
+            background: rgba(52, 152, 219, 0.2);
+        }
+        
+        .lang-btn.active {
+            background: #3498db;
+            color: white;
+        }
+    </style>
 </head>
-
 <body>
-  <!-- 版心容器 - 控制整体宽度并居中 -->
-  <div class="container">
-    <!-- 顶部标题栏 -->
-    <div class="header">
-      <h1>tlias 智能学习辅助系统</h1>
-      <button class="logout-btn">退出登录</button>
-    </div>
-
-    <!-- 搜索栏 -->
-    <form action="#" method="get" class="search-form">
-        <div class="search-group">
-            <label for="name">姓名</label>
-            <input type="text" id="name" name="name" placeholder="请输入员工姓名">
-            <label for="gender">性别</label>
-            <select id="gender" name="gender">
-            <option value="">请选择</option>
-            <option value="male">男</option>
-            <option value="female">女</option>
-            </select>
-            <label for="position">职位</label>
-            <select id="position" name="position">
-                <option value="">请选择</option>
-                <option value="teacher">班主任</option>
-                <option value="lecturer">讲师</option>
-                <option value="lecture1r">学工主管</option>
-                <option value="1">教研主管</option>
-                <option value="12">咨询师</option>
-            </select>
-        </div>
-        <div class="button-group">
-            <button type="submit" class="btn query-btn">查询</button>
-            <button type="reset" class="btn reset-btn">清空</button>
-        </div>
-    </form>
-
-    <!-- 表格区域 -->
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>姓名</th>
-            <th>性别</th>
-            <th>头像</th>
-            <th>职位</th>
-            <th>入职日期</th>
-            <th>最后操作时间</th>
-            <th>操作</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>赵敏</td>
-            <td>女</td>
-            <td><i class="fa-regular fa-image avatar"></i></td>
-            <td>班主任</td>
-            <td>2008-12-18</td>
-            <td>2023-07-22 12:05:20</td>
-            <td class="operate"><a href="#">编辑</a><a href="#">删除</a></td>
-          </tr>
-          <tr>
-            <td>风清扬</td>
-            <td>男</td>
-            <td><i class="fa-regular fa-image avatar"></i></td>
-            <td>讲师</td>
-            <td>2015-07-22</td>
-            <td>2022-07-22 15:00:00</td>
-            <td class="operate"><a href="#">编辑</a><a href="#">删除</a></td>
-          </tr>
-          <!-- 重复数据 -->
-          <tr>
-            <td>风清扬</td>
-            <td>男</td>
-            <td><i class="fa-regular fa-image avatar"></i></td>
-            <td>讲师</td>
-            <td>2015-07-22</td>
-            <td>2022-07-22 15:00:00</td>
-            <td class="operate"><a href="#">编辑</a><a href="#">删除</a></td>
-          </tr>
-          <tr>
-            <td>风清扬</td>
-            <td>男</td>
-            <td><i class="fa-regular fa-image avatar"></i></td>
-            <td>讲师</td>
-            <td>2015-07-22</td>
-            <td>2022-07-22 15:00:00</td>
-            <td class="operate"><a href="#">编辑</a><a href="#">删除</a></td>
-          </tr>
-          <tr>
-            <td>风清扬</td>
-            <td>男</td>
-            <td><i class="fa-regular fa-image avatar"></i></td>
-            <td>讲师</td>
-            <td>2015-07-22</td>
-            <td>2022-07-22 15:00:00</td>
-            <td class="operate"><a href="#">编辑</a><a href="#">删除</a></td>
-          </tr>
-          <tr>
-            <td>风清扬</td>
-            <td>男</td>
-            <td><i class="fa-regular fa-image avatar"></i></td>
-            <td>讲师</td>
-            <td>2015-07-22</td>
-            <td>2022-07-22 15:00:00</td>
-            <td class="operate"><a href="#">编辑</a><a href="#">删除</a></td>
-          </tr>
-          <tr>
-            <td>风清扬</td>
-            <td>男</td>
-            <td><i class="fa-regular fa-image avatar"></i></td>
-            <td>讲师</td>
-            <td>2015-07-22</td>
-            <td>2022-07-22 15:00:00</td>
-            <td class="operate"><a href="#">编辑</a><a href="#">删除</a></td>
-          </tr>
-          <tr>
-            <td>风清扬</td>
-            <td>男</td>
-            <td><i class="fa-regular fa-image avatar"></i></td>
-            <td>讲师</td>
-            <td>2015-07-22</td>
-            <td>2022-07-22 15:00:00</td>
-            <td class="operate"><a href="#">编辑</a><a href="#">删除</a></td>
-          </tr>
-          <tr>
-            <td>风清扬</td>
-            <td>男</td>
-            <td><i class="fa-regular fa-image avatar"></i></td>
-            <td>讲师</td>
-            <td>2015-07-22</td>
-            <td>2022-07-22 15:00:00</td>
-            <td class="operate"><a href="#">编辑</a><a href="#">删除</a></td>
-          </tr>
-          <tr>
-            <td>风清扬</td>
-            <td>男</td>
-            <td><i class="fa-regular fa-image avatar"></i></td>
-            <td>讲师</td>
-            <td>2015-07-22</td>
-            <td>2022-07-22 15:00:00</td>
-            <td class="operate"><a href="#">编辑</a><a href="#">删除</a></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- 底部版权信息 -->
-    <div class="footer">
-      江苏传智播客教育科技股份有限公司<br>
-      版权所有 Copyright 2006 - 2024 All Rights Reserved
-    </div>
-  </div>
-</body>
-
-</html>
+    <!-- 语言选择器 -->
+    <!-- <div class="language-selector">
+        <button class="lang-btn active" data-lang="zh-CN">简体中文</button>
+        <button class="lang-btn" data-lang="zh-TW">繁體中文</button>
+        <button class="lang-btn" data-lang="en">English</button>
+        <button class="lang-btn" data-lang="ja">日本語</button>
+    </div> -->
     
+    <img src="https://emojimix.app/emojimixfusion/176_150.png" class="bird-decoration bird-1">
+    <img src="https://emojimix.app/emojimixfusion/145_160.png" class="bird-decoration bird-2">
+    <img src="https://emojimix.app/emojimixfusion/103_167.png" class="bird-decoration bird-3">
+    
+    <h1 class="title" id="main-title">大鸟<span>转转转</span></h1>
+    
+    <div class="container">
+        <img src="https://s21.ax1x.com/2025/07/22/pVGkz24.png" alt="旋转的鸟" id="rotating-image">
+    </div>
+    
+    <div class="control-panel">
+        <div class="minimize-btn" id="minimize-btn">
+            <i class="fas fa-window-minimize"></i>
+        </div>
+        
+        <div class="panel-content">
+            <h2><i class="fas fa-sliders-h"></i> <span data-i18n="controlPanel">旋转控制台</span></h2>
+            
+            <div class="control-group">
+                <div class="control-group-title">
+                    <div>
+                        <i class="fas fa-image"></i>
+                        <span data-i18n="imageSettings">图片设置</span>
+                    </div>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <div class="control-content">
+                    <label for="image-url" data-i18n="imageUrl">图片地址</label>
+                    <input type="text" id="image-url" placeholder="输入图片URL" value="https://s21.ax1x.com/2025/07/22/pVGkz24.png">
+                    
+                    <label for="image-scale" data-i18n="imageSize">图片大小</label>
+                    <div class="slider-container">
+                        <input type="range" id="image-scale" min="0.5" max="2" step="0.1" value="1">
+                        <div class="value-display" id="scale-value">100%</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <div class="control-group-title">
+                    <div>
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span data-i18n="rotationSettings">旋转设置</span>
+                    </div>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <div class="control-content">
+                    <label for="rotation-speed" data-i18n="rotationSpeed">旋转速度</label>
+                    <div class="slider-container">
+                        <input type="range" id="rotation-speed" min="0.1" max="20" step="0.1" value="4">
+                        <div class="value-display" id="speed-value">4.0s</div>
+                    </div>
+                    
+                    <label data-i18n="rotationAxis">旋转轴</label>
+                    <div class="btn-group">
+                        <div class="btn-option active" data-axis="Y" data-i18n="yAxis">Y轴</div>
+                        <div class="btn-option" data-axis="X" data-i18n="xAxis">X轴</div>
+                        <div class="btn-option" data-axis="Z" data-i18n="zAxis">Z轴</div>
+                    </div>
+                    
+                    <label style="margin-top: 15px;" data-i18n="rotationDirection">旋转方向</label>
+                    <div class="btn-group">
+                        <div class="btn-option active" data-direction="normal" data-i18n="clockwise">顺时针</div>
+                        <div class="btn-option" data-direction="reverse" data-i18n="counterClockwise">逆时针</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <div class="control-group-title">
+                    <div>
+                        <i class="fas fa-globe"></i>
+                        <span data-i18n="languageSettings">语言设置</span>
+                    </div>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <div class="control-content">
+                    <label data-i18n="selectLanguage">选择语言</label>
+                    <div class="btn-group">
+                        <div class="btn-option" data-lang="zh-CN" data-i18n="simplifiedChinese">简体中文</div>
+                        <div class="btn-option" data-lang="zh-TW" data-i18n="traditionalChinese">繁體中文</div>
+                    </div>
+                    <div class="btn-group">
+                        <div class="btn-option" data-lang="en" data-i18n="english">English</div>
+                        <div class="btn-option" data-lang="ja" data-i18n="japanese">日本語</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="control-panel-spacer"></div>
+            
+            <button class="action-btn" id="reset-btn">
+                <i class="fas fa-redo"></i> <span data-i18n="resetSettings">重置设置</span>
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取DOM元素
+            const image = document.getElementById('rotating-image');
+            const container = document.querySelector('.container');
+            const imageUrlInput = document.getElementById('image-url');
+            const speedSlider = document.getElementById('rotation-speed');
+            const speedValue = document.getElementById('speed-value');
+            const scaleSlider = document.getElementById('image-scale');
+            const scaleValue = document.getElementById('scale-value');
+            const axisOptions = document.querySelectorAll('[data-axis]');
+            const directionOptions = document.querySelectorAll('[data-direction]');
+            const resetBtn = document.getElementById('reset-btn');
+            const minimizeBtn = document.getElementById('minimize-btn');
+            const controlPanel = document.querySelector('.control-panel');
+            
+            // 折叠面板功能
+            const controlGroupTitles = document.querySelectorAll('.control-group-title');
+            controlGroupTitles.forEach(title => {
+                title.addEventListener('click', function() {
+                    const controlGroup = this.closest('.control-group');
+                    controlGroup.classList.toggle('collapsed');
+                });
+            });
+            
+            // 当前动画设置
+            let currentAxis = 'Y';
+            let currentDirection = 'normal';
+            let currentSpeed = 4;
+            let currentScale = 1;
+            
+            // 更新图片
+            imageUrlInput.addEventListener('input', function() {
+                const newUrl = this.value.trim();
+                if (newUrl) {
+                    image.src = newUrl;
+                }
+            });
+            
+            // 更新旋转速度
+            speedSlider.addEventListener('input', function() {
+                currentSpeed = parseFloat(this.value);
+                speedValue.textContent = currentSpeed.toFixed(1) + 's';
+                updateAnimation();
+            });
+            
+            // 更新图片大小
+            scaleSlider.addEventListener('input', function() {
+                currentScale = parseFloat(this.value);
+                scaleValue.textContent = Math.round(currentScale * 100) + '%';
+                image.style.transform = `scale(${currentScale})`;
+            });
+            
+            // 更新旋转轴
+            axisOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // 更新UI
+                    axisOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // 更新旋转轴
+                    currentAxis = this.dataset.axis;
+                    updateAnimation();
+                });
+            });
+            
+            // 更新旋转方向
+            directionOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // 更新UI
+                    directionOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // 更新旋转方向
+                    currentDirection = this.dataset.direction;
+                    updateAnimation();
+                });
+            });
+            
+            // 重置按钮
+            resetBtn.addEventListener('click', function() {
+                // 重置图片URL
+                imageUrlInput.value = "https://s21.ax1x.com/2025/07/22/pVGkz24.png";
+                image.src = imageUrlInput.value;
+                
+                // 重置速度
+                speedSlider.value = 4;
+                currentSpeed = 4;
+                speedValue.textContent = "4.0s";
+                
+                // 重置缩放
+                scaleSlider.value = 1;
+                currentScale = 1;
+                scaleValue.textContent = "100%";
+                image.style.transform = "scale(1)";
+                
+                // 重置旋转轴
+                axisOptions.forEach(opt => {
+                    opt.classList.remove('active');
+                    if (opt.dataset.axis === 'Y') {
+                        opt.classList.add('active');
+                    }
+                });
+                currentAxis = 'Y';
+                
+                // 重置旋转方向
+                directionOptions.forEach(opt => {
+                    opt.classList.remove('active');
+                    if (opt.dataset.direction === 'normal') {
+                        opt.classList.add('active');
+                    }
+                });
+                currentDirection = 'normal';
+                
+                // 应用更新
+                updateAnimation();
+                
+                // 添加动画效果
+                this.querySelector('span').textContent = translations[currentLang].resetComplete;
+                setTimeout(() => {
+                    this.querySelector('span').textContent = translations[currentLang].resetSettings;
+                }, 2000);
+            });
+            
+            // 最小化按钮事件
+            minimizeBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                controlPanel.classList.toggle('minimized');
+                
+                // 更新图标
+                const icon = this.querySelector('i');
+                if (controlPanel.classList.contains('minimized')) {
+                    icon.classList.remove('fa-window-minimize');
+                    icon.classList.add('fa-window-restore');
+                    // 隐藏标题
+                    document.getElementById('main-title').style.display = 'none';
+                } else {
+                    icon.classList.remove('fa-window-restore');
+                    icon.classList.add('fa-window-minimize');
+                    // 显示标题
+                    document.getElementById('main-title').style.display = 'block';
+                }
+            });
+
+            // 控制面板点击事件
+            controlPanel.addEventListener('click', function(e) {
+                if (this.classList.contains('minimized')) {
+                    this.classList.remove('minimized');
+                    minimizeBtn.querySelector('i').classList.remove('fa-window-restore');
+                    minimizeBtn.querySelector('i').classList.add('fa-window-minimize');
+                    // 显示标题
+                    document.getElementById('main-title').style.display = 'block';
+                }
+            });
+            
+            // 更新动画的函数
+            function updateAnimation() {
+                // 根据方向和轴生成动画名称
+                let animationName;
+                if (currentDirection === 'normal') {
+                    animationName = `rotate${currentAxis}`;
+                } else {
+                    animationName = `rotate${currentAxis}-reverse`;
+                }
+                
+                container.style.animation = `${animationName} ${currentSpeed}s infinite linear`;
+            }
+            
+            // 初始化显示
+            speedValue.textContent = currentSpeed.toFixed(1) + 's';
+            scaleValue.textContent = Math.round(currentScale * 100) + '%';
+            
+            // 多语言支持
+            const translations = {
+                'zh-CN': {
+                    title: "大鸟",
+                    spin: "转转转",
+                    controlPanel: "旋转控制台",
+                    imageSettings: "图片设置",
+                    imageUrl: "图片地址",
+                    imageSize: "图片大小",
+                    rotationSettings: "旋转设置",
+                    rotationSpeed: "旋转速度",
+                    rotationAxis: "旋转轴",
+                    rotationDirection: "旋转方向",
+                    yAxis: "Y轴",
+                    xAxis: "X轴",
+                    zAxis: "Z轴",
+                    clockwise: "顺时针",
+                    counterClockwise: "逆时针",
+                    languageSettings: "语言设置",
+                    selectLanguage: "选择语言",
+                    simplifiedChinese: "简体中文",
+                    traditionalChinese: "繁體中文",
+                    english: "English",
+                    japanese: "日本語",
+                    resetSettings: "重置设置",
+                    resetComplete: "已重置!"
+                },
+                'zh-TW': {
+                    title: "大鳥",
+                    spin: "轉轉轉",
+                    controlPanel: "旋轉控制台",
+                    imageSettings: "圖片設置",
+                    imageUrl: "圖片地址",
+                    imageSize: "圖片大小",
+                    rotationSettings: "旋轉設置",
+                    rotationSpeed: "旋轉速度",
+                    rotationAxis: "旋轉軸",
+                    rotationDirection: "旋轉方向",
+                    yAxis: "Y軸",
+                    xAxis: "X軸",
+                    zAxis: "Z軸",
+                    clockwise: "順時針",
+                    counterClockwise: "逆時針",
+                    languageSettings: "語言設置",
+                    selectLanguage: "選擇語言",
+                    simplifiedChinese: "簡體中文",
+                    traditionalChinese: "繁體中文",
+                    english: "English",
+                    japanese: "日本語",
+                    resetSettings: "重置設置",
+                    resetComplete: "已重置!"
+                },
+                'en': {
+                    title: "Spinning",
+                    spin: "Bird",
+                    controlPanel: "Control Panel",
+                    imageSettings: "Image Settings",
+                    imageUrl: "Image URL",
+                    imageSize: "Image Size",
+                    rotationSettings: "Rotation Settings",
+                    rotationSpeed: "Rotation Speed",
+                    rotationAxis: "Rotation Axis",
+                    rotationDirection: "Rotation Direction",
+                    yAxis: "Y-Axis",
+                    xAxis: "X-Axis",
+                    zAxis: "Z-Axis",
+                    clockwise: "Clockwise",
+                    counterClockwise: "Counter-Clockwise",
+                    languageSettings: "Language Settings",
+                    selectLanguage: "Select Language",
+                    simplifiedChinese: "Simplified Chinese",
+                    traditionalChinese: "Traditional Chinese",
+                    english: "English",
+                    japanese: "Japanese",
+                    resetSettings: "Reset Settings",
+                    resetComplete: "Reset Complete!"
+                },
+                'ja': {
+                    title: "回る",
+                    spin: "鳥",
+                    controlPanel: "コントロールパネル",
+                    imageSettings: "画像設定",
+                    imageUrl: "画像URL",
+                    imageSize: "画像サイズ",
+                    rotationSettings: "回転設定",
+                    rotationSpeed: "回転速度",
+                    rotationAxis: "回転軸",
+                    rotationDirection: "回転方向",
+                    yAxis: "Y軸",
+                    xAxis: "X軸",
+                    zAxis: "Z軸",
+                    clockwise: "時計回り",
+                    counterClockwise: "反時計回り",
+                    languageSettings: "言語設定",
+                    selectLanguage: "言語を選択",
+                    simplifiedChinese: "簡体字中国語",
+                    traditionalChinese: "繁体字中国語",
+                    english: "英語",
+                    japanese: "日本語",
+                    resetSettings: "設定をリセット",
+                    resetComplete: "リセット完了!"
+                }
+            };
+            
+            let currentLang = 'zh-CN';
+            
+            // 更新页面语言
+            function updateLanguage(lang) {
+                currentLang = lang;
+                
+                // 更新标题
+                document.querySelector('#main-title').innerHTML = 
+                    `${translations[lang].title}<span>${translations[lang].spin}</span>`;
+                
+                // 更新所有带data-i18n属性的元素
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (translations[lang][key]) {
+                        el.textContent = translations[lang][key];
+                    }
+                });
+                
+                // 更新语言选择器按钮状态
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.lang === lang) {
+                        btn.classList.add('active');
+                    }
+                });
+                
+                // 更新语言设置选项状态
+                document.querySelectorAll('.control-content .btn-option[data-lang]').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.lang === lang) {
+                        btn.classList.add('active');
+                    }
+                });
+                
+                // 保存语言选择
+                localStorage.setItem('preferredLang', lang);
+            }
+            
+            // 语言选择按钮事件
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    updateLanguage(this.dataset.lang);
+                });
+            });
+            
+            // 控制面板中的语言选择事件
+            document.querySelectorAll('.control-content .btn-option[data-lang]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    updateLanguage(this.dataset.lang);
+                });
+            });
+            
+            // 从localStorage加载保存的语言设置
+            const savedLang = localStorage.getItem('preferredLang');
+            if (savedLang && translations[savedLang]) {
+                updateLanguage(savedLang);
+            } else {
+                updateLanguage('zh-CN');
+            }
+        });
+    </script>
+</body>
+</html>
